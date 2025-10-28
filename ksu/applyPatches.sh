@@ -7,9 +7,10 @@ source "${outside}/$1env"
 
 curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s next
 git add . && git commit -am "drivers: KernelSUNext"
-ifeq ($(shell test -e $(srctree)/$(src)/../.git; echo $$?),0)
-KSU_VERSION_TAG := $(shell cd $(srctree)/$(src); /usr/bin/env PATH="$$PATH":/usr/bin:/usr/local/bin git describe --tags --abbrev=0 2>/dev/null)
-$(info -- KernelSU-Next tag: $(KSU_VERSION_TAG))
+KSU_GIT_VERSION := $(shell cd KernelSU-Next && git rev-list --count HEAD)
+KSU_VERSION := $(shell expr 10000 + $(KSU_GIT_VERSION) + 200)
+
+$(info -- KernelSU-Next version: $(KSU_VERSION))
 
 patchesdir="$outside/ksu/patches/$(echo $kernel_ver | cut -d. -f1,2)"
 if [[ -d "$patchesdir" ]]; then
@@ -21,7 +22,7 @@ else
   exit 1
 fi
 
-sed -i "s/\(CONFIG_LOCALVERSION=\)\(.*\)/\1\"-${kernel_name}-ksn${KSU_VERSION_TAG}\"/" "${defconfig_file}"
+sed -i "s/\(CONFIG_LOCALVERSION=\)\(.*\)/\1\"-${kernel_name}-KSUNext${KSU_ver}\"/" "${KSU_VERSION}"
 
 echo "$(grep 'CONFIG_LOCALVERSION=' ${defconfig_file})"
 
