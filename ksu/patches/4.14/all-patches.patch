@@ -1,18 +1,7 @@
-diff --git a/KernelSU-Next b/KernelSU-Next
-new file mode 160000
-index 000000000000..e11cab38f150
---- /dev/null
-+++ b/KernelSU-Next
-@@ -0,0 +1 @@
-+Subproject commit e11cab38f15031a39a802a388560da07ce102dd5
 diff --git a/arch/arm64/configs/selene_defconfig b/arch/arm64/configs/selene_defconfig
 index e71889e9f3bb..2b810bbf4f2b 100644
 --- a/arch/arm64/configs/selene_defconfig
 +++ b/arch/arm64/configs/selene_defconfig
-@@ -445,3 +445,7 @@ CONFIG_STATIC_USERMODEHELPER_PATH="/system_ext/bin/aee_core_forwarder"
- # CONFIG_INTEGRITY is not set
- CONFIG_CRYPTO_TWOFISH=y
- # CONFIG_CRYPTO_HW is not set
 +
 +CONFIG_KSU=y
 +CONFIG_KSU_KPROBES_HOOK=y
