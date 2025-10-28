@@ -6,9 +6,9 @@ export maindir="$(pwd)"
 export outside="${maindir}/.."
 source "${outside}/$1env"
 
-curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/refs/heads/main/kernel/setup.sh" | bash -
-git add . && git commit -am "drivers: KernelSU"
-KSU_git_ver=$(cd KernelSU && git rev-list --count HEAD)
+curl -LSs "curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s next" | bash -
+git add . && git commit -am "drivers: KernelSUNext"
+KSU_git_ver=$(cd KernelSU-Next && git rev-list --count HEAD)
 KSU_ver=$(($KSU_git_ver + 10000 + 200))
 
 patchesdir="$outside/ksu/patches/$(echo $kernel_ver | cut -d. -f1,2)"
@@ -21,9 +21,7 @@ else
   exit 1
 fi
 
-sed -i "s/\(CONFIG_LOCALVERSION=\)\(.*\)/\1\"-${kernel_name}-ks${KSU_ver}\"/" "${defconfig_file}"
+sed -i "s/\(CONFIG_LOCALVERSION=\)\(.*\)/\1\"-${kernel_name}-ksn${KSU_ver}\"/" "${defconfig_file}"
 
 echo "$(grep 'CONFIG_LOCALVERSION=' ${defconfig_file})"
-
-echo -e " \nincludes rsuntk's KernelSU fork, ver ${KSU_ver}" >> banner_append
 

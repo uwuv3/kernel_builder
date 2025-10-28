@@ -120,6 +120,10 @@ jobs:
             cd kernel
             bash ../tg_utils.sh msg "gh $RUN_NUM: running compilation script(s): $COMPILERS"
             bash ../build.sh "$COMPILERS"
+            bash ../tg_utils.sh msg "gh $RUN_NUM: KernelSU patching enabled, patching"
+            bash ../ksu/applyPatches.sh
+            bash ../tg_utils.sh msg "gh $RUN_NUM: running compilation script(s): $COMPILERS"
+            bash ../build.sh "$COMPILERS"
 
         - name: upload
           run: |
