@@ -21,15 +21,15 @@ else
   exit 1
 fi
 
-sed -i "s/\(CONFIG_LOCALVERSION=\)\(.*\)/\1\"-${kernel_name}-KsuNext${KSU_VERSION}\"/" "${defconfig_file}"
+sed -i "s/\(CONFIG_LOCALVERSION=\)\(.*\)/\1\"-${kernel_name}-Next${KSU_VERSION}\"/" "${defconfig_file}"
 
 echo "$(grep 'CONFIG_LOCALVERSION=' ${defconfig_file})"
 
 echo "" >> "${defconfig_file}"
 echo "CONFIG_KSU=y" >> "${defconfig_file}"
-echo "CONFIG_KSU_KPROBES_HOOK=N" >> "${defconfig_file}"
-echo "CONFIG_KSU_LSM_SECURITY_HOOKS=Y" >> "${defconfig_file}"
+echo "CONFIG_KSU_KPROBES_HOOK=n" >> "${defconfig_file}"
+echo "CONFIG_KSU_LSM_SECURITY_HOOKS=y" >> "${defconfig_file}"
 echo "" >> "${defconfig_file}"
 
-echo -e " \nincludes Kernelsu-Next, ver ${KSU_VERSION}" >> banner_append
+echo -e " \nincludes KernelSU-Next, ver ${KSU_VERSION}" >> banner_append
 
