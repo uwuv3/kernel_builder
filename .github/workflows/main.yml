@@ -71,6 +71,7 @@ on: # [push]
         - 'none'
         - 'ksu'
         - 'ksu+sus'
+        - 'ksunext'
       TG_RECIPENT:
         description: 'idk'
         required: false
@@ -151,6 +152,15 @@ jobs:
                 bash ../build.sh "$COMPILERS"
                 bash ../tg_utils.sh msg "gh $RUN_NUM: KernelSU patching"
                 bash ../ksu/applyPatches.sh
+                bash ../tg_utils.sh msg "gh $RUN_NUM: running compilation script(s): $COMPILERS"
+                bash ../build.sh "$COMPILERS"
+              ;;
+              "ksunext" )
+                bash ../tg_utils.sh msg "gh $RUN_NUM: KernelSU-Next patching enabled"
+                bash ../tg_utils.sh msg "gh $RUN_NUM: running compilation script(s): $COMPILERS"
+                bash ../build.sh "$COMPILERS"
+                bash ../tg_utils.sh msg "gh $RUN_NUM: KernelSU-Next patching"
+                bash ../ksunext/applyPatches.sh
                 bash ../tg_utils.sh msg "gh $RUN_NUM: running compilation script(s): $COMPILERS"
                 bash ../build.sh "$COMPILERS"
               ;;
